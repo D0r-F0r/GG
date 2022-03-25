@@ -1,0 +1,50 @@
+﻿<Window x:Class="AutoService.windows.MiscWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AutoService.windows"
+        mc:Ignorable="d"
+        Loaded="Window_Loaded"
+        Title="MiscWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Orientation="Vertical">
+            <Button x:Name="RegexButton" Click="RegexButton_Click" Content="Проверить e-mail"/>
+            <Button x:Name="ClientServise" Click="ClientServise_Click" Content="Запись"/>
+        </StackPanel>
+        <StackPanel Grid.Column="1">
+            <TextBox x:Name="EmailTextBox" Text="kolei@mail.ru"/>
+            <TextBlock 
+                x:Name="ResponseTextBox" 
+                TextWrapping="Wrap"
+                Background="AliceBlue"/>
+        </StackPanel>
+        <DataGrid x:Name="vis" Grid.Column="1" AutoGenerateColumns="False" Visibility="Hidden" Margin="0,42,0,10">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="id" Visibility="Hidden" Binding="{Binding ID}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Клиент" Binding="{Binding Client.FirstName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Услуга" Binding="{Binding Service.Title}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Время начала" Binding="{Binding StartTime}"></DataGridTextColumn>
+                <DataGridTemplateColumn
+                    Header="Действия">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel 
+                                Visibility="{Binding DataContext.AdminVisibility, ElementName=Root}"
+                                Orientation="Horizontal">
+                                <Button 
+                                        Content="Удалить" 
+                                        Name="DeleteButton" 
+                                        Click="DeleteButton_Click"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>
